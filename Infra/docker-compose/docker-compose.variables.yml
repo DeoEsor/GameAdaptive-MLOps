@@ -1,0 +1,13 @@
+﻿version: '3.8'
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  elasticsearch:
+  mongodb:
+  cache:
+  db:
+  certificates:
+  minio-storage:

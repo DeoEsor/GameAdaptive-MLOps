@@ -1,0 +1,7 @@
+﻿version: '3.8'
+
+include:
+  - path: ./src/infra/docker-compose/docker-compose.kafka.yml
+  - path: ./src/infra/docker-compose/docker-compose.minio.yml
+  - path: ./src/infra/docker-compose/docker-compose.postgresql.yml
+  - path: ./src/infra/docker-compose/docker-compose.variables.yml
