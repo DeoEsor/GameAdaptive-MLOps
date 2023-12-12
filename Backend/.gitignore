@@ -1,1 +1,6 @@
-﻿
+﻿.idea/
+.vscode/
+*.json
+!swagger.json
+
+values_local.yaml
