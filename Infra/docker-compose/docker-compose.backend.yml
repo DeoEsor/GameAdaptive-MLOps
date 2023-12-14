@@ -6,8 +6,6 @@ services:
     environment:
       ENV_FILE_NAME: values_prod.yaml
       PGPASSWORD: postgres
-    volumes:
-      - ./bin:/backend/bin
     ports:
       - "80:80"
     networks:
@@ -16,3 +14,9 @@ services:
       - db
       - kafka
     entrypoint: ["make", "run"]
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 5
+        window: 15s
