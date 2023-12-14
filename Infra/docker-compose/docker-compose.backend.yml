@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ../../Backend/.
+    environment:
+      ENV_FILE_NAME: values_prod.yaml
+      PGPASSWORD: postgres
+    volumes:
+      - ./bin:/backend/bin
+    ports:
+      - "80:80"
+    networks:
+      - internal
+    depends_on:
+      - db
+      - kafka
+    entrypoint: ["make", "run"]

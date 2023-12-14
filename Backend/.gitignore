@@ -2,5 +2,6 @@
 .vscode/
 *.json
 !swagger.json
+/bin
 
 values_local.yaml
