@@ -6,4 +6,4 @@ env:
     value: 80
 
   - name: kafka_brokers
-    value: "kafka:9092"
+    value: "kafka:29092"

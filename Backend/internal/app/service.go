@@ -2,25 +2,26 @@ package app
 
 import (
 	"context"
-	"time"
+
+	"github.com/DeoEsor/GameAdaptive-MLOp/Backend/internal/pkg/pgqueue"
 )
 
 type (
-	ProducerSender interface {
-		SendMessage(ctx context.Context, message time.Time) error
+	PgqueueScheduler interface {
+		Schedule(ctx context.Context, taskName pgqueue.TaskKind, payload []byte) error
 	}
 )
 
 // Implementation структура для реализации различных ручек
 type Implementation struct {
-	producerSender ProducerSender
+	scheduler PgqueueScheduler
 }
 
 // NewImplementation конструктор для Implementation
 func NewImplementation(
-	producerSender ProducerSender,
+	producerSender PgqueueScheduler,
 ) (*Implementation, error) {
 	return &Implementation{
-		producerSender: producerSender,
+		scheduler: producerSender,
 	}, nil
 }

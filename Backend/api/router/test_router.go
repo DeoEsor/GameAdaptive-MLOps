@@ -7,11 +7,8 @@ import (
 	"github.com/go-chi/chi"
 )
 
-func newTestRouter(errHandler middleware.ErrHandler) chi.Router {
-	testRouter := chi.NewRouter()
-
-	testRouter.With(httpin.NewInput(domain.SendTestTimeRequest{})).Post("/SendTestTime",
+func newTestRouter(parentRoute chi.Router, errHandler middleware.ErrHandler) {
+	parentRoute.With(httpin.NewInput(domain.SendTestTimeRequest{})).Post("/SendTestTime",
 		errHandler.ErrMiddleware(domain.SendTestTime),
 	)
-	return testRouter
 }

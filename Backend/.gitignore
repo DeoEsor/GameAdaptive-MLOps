@@ -3,5 +3,6 @@
 *.json
 !swagger.json
 /bin
+/queries
 
 values_local.yaml

@@ -2,8 +2,8 @@ package kafka
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/IBM/sarama"
 	"github.com/sirupsen/logrus"
@@ -25,10 +25,15 @@ func NewKafkaProducer(
 }
 
 // SendMessage - отправляет сообщение в кафку
-func (k kafkaProduser) SendMessage(ctx context.Context, message time.Time) error {
+func (k kafkaProduser) SendMessage(ctx context.Context, key string, message interface{}) error {
+	messageToSend, err := json.Marshal(message)
+	if err != nil {
+		return fmt.Errorf("cannot marshal message: %w", err)
+	}
 	msg := &sarama.ProducerMessage{
 		Topic: k.topic,
-		Value: sarama.StringEncoder(message.Format(time.RFC3339)),
+		Key:   sarama.StringEncoder(key),
+		Value: sarama.StringEncoder(string(messageToSend)),
 	}
 
 	partition, offset, err := k.producerClient.SendMessage(msg)
