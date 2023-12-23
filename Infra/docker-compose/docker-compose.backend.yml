@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ../../Backend/.
+    environment:
+      ENV_FILE_NAME: values_prod.yaml
+      PGPASSWORD: postgres
+    ports:
+      - "80:80"
+    networks:
+      - internal
+    depends_on:
+      - db
+      - kafka
+    entrypoint: ["make", "run"]
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 5
+        window: 15s

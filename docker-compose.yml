@@ -5,3 +5,4 @@ include:
   - path: ./Infra/docker-compose/docker-compose.minio.yml
   - path: ./Infra/docker-compose/docker-compose.postgresql.yml
   - path: ./Infra/docker-compose/docker-compose.variables.yml
+  - path: ./Infra/docker-compose/docker-compose.backend.yml

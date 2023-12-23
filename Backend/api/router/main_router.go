@@ -29,8 +29,8 @@ func NewRouter(
 
 	// обязательный mount на все. Нужен для создания запросов на /api
 	// Например:
-	// root.Mount("/api", newCusmomRouter(errHandler))
-	root.Mount("/test", newTestRouter(errHandler))
+	// root.Mount("/api", func(r chi.Router) {newTestRouter(r, errHandler)})
+	root.Route("/test", func(r chi.Router) { newTestRouter(r, errHandler) })
 
 	rootApi := chi.NewRouter()
 
