@@ -10,6 +10,7 @@ import (
 	"github.com/DeoEsor/GameAdaptive-MLOp/Backend/api/middleware"
 	"github.com/DeoEsor/GameAdaptive-MLOp/Backend/api/router"
 	"github.com/DeoEsor/GameAdaptive-MLOp/Backend/internal/app"
+	"github.com/DeoEsor/GameAdaptive-MLOp/Backend/internal/app/usecase/save_race_time"
 	"github.com/DeoEsor/GameAdaptive-MLOp/Backend/internal/app/usecase/test_time_setter"
 	"github.com/DeoEsor/GameAdaptive-MLOp/Backend/internal/config"
 	"github.com/DeoEsor/GameAdaptive-MLOp/Backend/internal/config/flags"
@@ -47,6 +48,11 @@ func main() {
 	pgqueueClient.RegisterTask(
 		pgqueue.TimeSetKind,
 		testTimeSetter,
+	)
+
+	pgqueueClient.RegisterTask(
+		pgqueue.RaceTime,
+		save_race_time.NewRaceSetter(kafkaProducer),
 	)
 
 	// Имплементация API

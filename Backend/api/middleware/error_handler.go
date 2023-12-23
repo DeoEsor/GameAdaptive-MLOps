@@ -18,13 +18,13 @@ const contextDeadline = time.Minute * 5
 
 // ErrHandler структура используется для того, чтобы возможно было хендлить ошибки из ручек
 type ErrHandler struct {
-	mangaHandler domain.Handlers
+	handlerCatcher domain.Handlers
 }
 
 // Конструктор для ErrHandler
-func NewErrorHandler(mangaHandler domain.Handlers) ErrHandler {
+func NewErrorHandler(handlerCatcher domain.Handlers) ErrHandler {
 	return ErrHandler{
-		mangaHandler: mangaHandler,
+		handlerCatcher: handlerCatcher,
 	}
 }
 
@@ -79,9 +79,14 @@ func (em ErrHandler) handleTypeSwitcher(ctx context.Context, r *http.Request, ha
 	switch handleType {
 	case domain.SendTestTime:
 		if inputQuery == nil {
-			return em.mangaHandler.SendTestTime(ctx, nil)
+			return em.handlerCatcher.SendTestTime(ctx, nil)
 		}
-		return em.mangaHandler.SendTestTime(ctx, inputQuery.(*domain.SendTestTimeRequest))
+		return em.handlerCatcher.SendTestTime(ctx, inputQuery.(*domain.SendTestTimeRequest))
+	case domain.SaveRaceTime:
+		if inputQuery == nil {
+			return em.handlerCatcher.SaveRaceTime(ctx, nil)
+		}
+		return em.handlerCatcher.SaveRaceTime(ctx, inputQuery.(*domain.SaveRaceRequest))
 	}
 	return nil, customerrors.ErrUnknownType
 }

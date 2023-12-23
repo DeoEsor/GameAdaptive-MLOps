@@ -31,6 +31,7 @@ func NewRouter(
 	// Например:
 	// root.Mount("/api", func(r chi.Router) {newTestRouter(r, errHandler)})
 	root.Route("/test", func(r chi.Router) { newTestRouter(r, errHandler) })
+	root.Route("/race", func(r chi.Router) { newRaceRouter(r, errHandler) })
 
 	rootApi := chi.NewRouter()
 
